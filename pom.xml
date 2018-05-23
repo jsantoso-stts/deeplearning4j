@@ -112,6 +112,27 @@
                 <module>jumpy</module>
             </modules>
         </profile>
+        <profile>
+            <id>devlopment-nexus</id>
+            <activation>
+                <property>
+                    <name>local.software.repository</name>
+                    <value>devlopment-nexus</value>
+                </property>
+            </activation>
+            <distributionManagement>
+                <repository>
+                    <id>devlopment-nexus-releases</id>
+                    <name>Skymind development nexus releases</name>
+                    <url>http://52.179.87.114/repository/maven-releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>devlopment-nexus-snapshots</id>
+                    <name>Skymind development nexus snapshots</name>
+                    <url>http://52.179.87.114/repository/maven-snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
     </profiles>
 
 </project>
