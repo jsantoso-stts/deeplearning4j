@@ -20,6 +20,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.OpenCVFrameConverter;
+import org.datavec.api.resources.DataVecResources;
+import org.datavec.api.resources.ResourceType;
 import org.nd4j.linalg.primitives.Pair;
 import org.datavec.image.data.ImageWritable;
 import org.datavec.image.transform.ColorConversionTransform;
@@ -48,6 +50,7 @@ import static org.bytedeco.javacpp.opencv_imgproc.COLOR_BGR2YCrCb;
  * https://github.com/szagoruyko/cifar.torch
  */
 public class CifarLoader extends NativeImageLoader implements Serializable {
+    private static final String CIFAR = "cifar";
     public static final int NUM_TRAIN_IMAGES = 50000;
     public static final int NUM_TEST_IMAGES = 10000;
     public static final int NUM_LABELS = 10; // Note 6000 imgs per class
@@ -94,7 +97,7 @@ public class CifarLoader extends NativeImageLoader implements Serializable {
     protected int fileNum = 0;
 
     private static File getDefaultDirectory() {
-        return new File(BASE_DIR, FilenameUtils.concat(localDir, dataBinFile));
+        return new File(DataVecResources.getDirectory(ResourceType.DATASET, CIFAR), FilenameUtils.concat(localDir, dataBinFile));
     }
 
     public CifarLoader() {
@@ -137,7 +140,7 @@ public class CifarLoader extends NativeImageLoader implements Serializable {
         this.shuffle = shuffle;
 
         if (fullDir == null) {
-            this.fullDir = getDefaultDirectory();
+            this.fullDir = getDefaultDirectory();   //Root directory using DataVecResources
         } else {
             this.fullDir = fullDir;
         }

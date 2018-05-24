@@ -17,6 +17,8 @@
 package org.datavec.api.transform.transform.geo;
 
 import org.apache.commons.io.FileUtils;
+import org.datavec.api.resources.DataVecResources;
+import org.datavec.api.resources.ResourceType;
 import org.nd4j.util.ArchiveUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,6 @@ public class GeoIPFetcher {
 
     /** Default directory for http://dev.maxmind.com/geoip/geoipupdate/ */
     public static final String GEOIP_DIR = "/usr/local/share/GeoIP/";
-    public static final String GEOIP_DIR2 = System.getProperty("user.home") + "/.datavec-geoip";
 
     public static final String CITY_DB = "GeoIP2-City.mmdb";
     public static final String CITY_LITE_DB = "GeoLite2-City.mmdb";
@@ -45,6 +46,8 @@ public class GeoIPFetcher {
                     "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz";
 
     public static synchronized File fetchCityDB() throws IOException {
+        File GEOIP_DIR2 = DataVecResources.getDirectory(ResourceType.RESOURCE, "geoip");
+
         File cityFile = new File(GEOIP_DIR, CITY_DB);
         if (cityFile.isFile()) {
             return cityFile;
@@ -60,7 +63,7 @@ public class GeoIPFetcher {
 
         log.info("Downloading GeoLite2 City database...");
         File archive = new File(GEOIP_DIR2, CITY_LITE_DB + ".gz");
-        File dir = new File(GEOIP_DIR2);
+        File dir = GEOIP_DIR2;
         dir.mkdirs();
         FileUtils.copyURLToFile(new URL(CITY_LITE_URL), archive);
         ArchiveUtils.unzipFileTo(archive.getAbsolutePath(), dir.getAbsolutePath());

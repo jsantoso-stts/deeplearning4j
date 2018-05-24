@@ -16,6 +16,7 @@
 
 package org.datavec.image.loader;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.datavec.image.data.Image;
 import org.datavec.image.transform.ImageTransform;
@@ -35,11 +36,9 @@ import java.util.Random;
 /**
  * Created by nyghtowl on 12/17/15.
  */
+@Slf4j
 public abstract class BaseImageLoader implements Serializable {
 
-    protected static final Logger log = LoggerFactory.getLogger(BaseImageLoader.class);
-
-    public static final File BASE_DIR = new File(System.getProperty("user.home"));
     public static final String[] ALLOWED_FORMATS = {"tif", "jpg", "png", "jpeg", "bmp", "JPEG", "JPG", "TIF", "PNG"};
     protected Random rng = new Random(System.currentTimeMillis());
 

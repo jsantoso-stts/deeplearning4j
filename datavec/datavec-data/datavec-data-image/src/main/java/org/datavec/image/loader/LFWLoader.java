@@ -21,6 +21,8 @@ import org.datavec.api.io.filters.BalancedPathFilter;
 import org.datavec.api.io.labels.PathLabelGenerator;
 import org.datavec.api.io.labels.PatternPathLabelGenerator;
 import org.datavec.api.records.reader.RecordReader;
+import org.datavec.api.resources.DataVecResources;
+import org.datavec.api.resources.ResourceType;
 import org.datavec.api.split.FileSplit;
 import org.datavec.api.split.InputSplit;
 import org.datavec.image.data.Image;
@@ -97,7 +99,7 @@ public class LFWLoader extends BaseImageLoader implements Serializable {
         this.imageTransform = imgTransform;
         this.useSubset = useSubset;
         this.localDir = useSubset ? localSubDir : localDir;
-        this.fullDir = new File(BASE_DIR, localDir);
+        this.fullDir = new File(DataVecResources.getDirectory(ResourceType.DATASET, "lfw"), localDir);
         generateLfwMaps();
     }
 
@@ -147,6 +149,7 @@ public class LFWLoader extends BaseImageLoader implements Serializable {
     }
 
     public boolean imageFilesExist() {
+        File BASE_DIR = DataVecResources.getDirectory(ResourceType.DATASET, "lfw");
         if (useSubset) {
             File f = new File(BASE_DIR, lfwSubsetData.get("filesFilenameUnzipped"));
             if (!f.exists())
