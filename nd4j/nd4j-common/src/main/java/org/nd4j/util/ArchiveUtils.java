@@ -42,13 +42,25 @@ public class ArchiveUtils {
     }
 
     /**
-     * Extracts files to the specified destination
+     * Extracts files to the specified destination, logging all extracted files
      *
      * @param file the file to extract to
      * @param dest the destination directory
      * @throws IOException
      */
     public static void unzipFileTo(String file, String dest) throws IOException {
+        unzipFileTo(file, dest, true);
+    }
+
+    /**
+     * Extracts files to the specified destination, optionally logging each extracted file
+     *
+     * @param file          the file to extract to
+     * @param dest          the destination directory
+     * @param logExtraction If true: log extraction of each file. False: don't log
+     * @throws IOException
+     */
+    public static void unzipFileTo(String file, String dest, boolean logExtraction) throws IOException {
         File target = new File(file);
         if (!target.exists())
             throw new IllegalArgumentException("Archive doesnt exist");
@@ -95,7 +107,8 @@ public class ArchiveUtils {
             TarArchiveEntry entry;
             /* Read the tar entries using the getNextEntry method **/
             while ((entry = (TarArchiveEntry) tarIn.getNextEntry()) != null) {
-                log.info("Extracting: " + entry.getName());
+                if(logExtraction)
+                    log.info("Extracting: " + entry.getName());
                 /* If the entry is a directory, create the directory. */
 
                 if (entry.isDirectory()) {

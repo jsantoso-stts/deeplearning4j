@@ -38,7 +38,9 @@ public abstract class CacheableExtractableDataSetFetcher implements CacheableDat
 
         // check empty cache
         if(LOCAL_CACHE.exists()) {
-            if(LOCAL_CACHE.listFiles().length<1) LOCAL_CACHE.delete();
+            File[] files = LOCAL_CACHE.listFiles();
+            if(files == null || files.length < 1)
+                FileUtils.deleteDirectory(LOCAL_CACHE);
         }
 
         if(!new File(LOCAL_CACHE, dataSetName(set)).exists()) {
