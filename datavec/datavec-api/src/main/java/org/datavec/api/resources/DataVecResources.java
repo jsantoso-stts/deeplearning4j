@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * DataVecResources controls the local storage locations for resources and datasets that are downloaded and stored locally.<br>
  * The storage location is customizable in 2 ways:<br>
- * (a) via the {@link #DATAVEC_RESOURCES_DIR_PROPERTY} system property, org.deeplearning4j.resources.directory<br>
+ * (a) via the {@link #DATAVEC_RESOURCES_DIR_PROPERTY} system property, org.datavec.resources.directory<br>
  * (b) By calling {@link #setBaseDirectory(File)} at runtime<br>
  *
  * @author Alex Black
@@ -89,7 +89,7 @@ public class DataVecResources {
         if(property != null){
             baseDirectory = new File(property);
         } else {
-            baseDirectory = new File(System.getProperty("user.home"), ".deeplearning4j");
+            baseDirectory = new File(System.getProperty("user.home"), ".datavec");
         }
 
         if(!baseDirectory.exists()){

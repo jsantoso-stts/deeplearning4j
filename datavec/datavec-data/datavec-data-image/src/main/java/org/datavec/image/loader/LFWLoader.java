@@ -17,6 +17,7 @@
 package org.datavec.image.loader;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.datavec.api.io.filters.BalancedPathFilter;
 import org.datavec.api.io.labels.PathLabelGenerator;
 import org.datavec.api.io.labels.PatternPathLabelGenerator;
@@ -50,6 +51,7 @@ import java.util.Random;
  *      most images are in color, although a few are grayscale
  *
  */
+@Slf4j
 public class LFWLoader extends BaseImageLoader implements Serializable {
 
     public final static int NUM_IMAGES = 13233;
